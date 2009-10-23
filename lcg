@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Please see "loc" script for details
+#
+. loc go $1
+

@@ -1,0 +1,83 @@
+== loc - Location bookmarking script ==
+
+Author: Amit Singh (xk0der) 
+amit@xkoder.com
+Licensed under MIT License
+
+== LICENSE ==
+
+Copyright (c) 2009, Amit Singh (xk0der)
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+
+== About the Script ==
+
+The Location Bookmarking Script (LOC) makes it easy 
+to bookmark folders and to move across bookmarked folders.
+
+
+== Syntax ==
+
+$ . loc rem [Location_NickName]
+$ . loc go [Location_NickName]
+$ . loc show
+$ . loc clear [all|number]
+
+Notice the DOT (.) before every command.
+Technically it is only required with the "go" command,
+But if you use it with all the "loc" it just makes it that bit
+easier for your brain!! :)
+
+
+=== Commands ===
+
+rem - Remember the current working directory.
+    Optionally you may specify a short nick name
+    Example: (/etc/mail)$ . loc rem mail
+             (/home/xk0der)$.  loc rem
+    The first command will save /etc/mail as mail
+    Second will store /home/xk0der as default location
+
+go  - Go will move you to the locations you saved using 'rem'
+    Example: $ . loc go mail
+             $ . loc go
+    Taking previours examples into consideration the first
+    will take you to /etc/mail, the second wil take you to /home/xk0der
+
+show  - This will list down a numbered list of remembered (saved) locations
+      Example: $ . loc show
+      Output format is
+          indexNumber [nickName]: storedLocation
+      Example output:
+          1 [default]: /usr/src" 
+          2 [mail]: /etc/mail
+          3 [share]: /usr/local/share
+
+clear - Clears saved locations
+      You need to either specify 'all' after this command to clear
+      all saved locations or a number as shown by 'show' command 
+      to delete that location
+      Example: $ . loc clear all
+               $ . loc clear 2
+
+== Shortcuts ==

@@ -1,0 +1,195 @@
+#!/bin/sh
+
+# 
+# LOC - Bookmark your folders (LOCation :)  
+# Author: Amit Singh (xk0der), amit@xkoder.com
+# Date: 15/Dec/2007
+#
+# http://xkoder.com
+#
+# LICENSE: This software is licensed under the MIT License.
+#
+# Copyright (c) 2009 , Amit Singh (xk0der)
+# 
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+# 
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+# 
+# Thank you for using the "loc" script.
+#
+
+# CONFIGURATION
+# The defaults do a good job, 
+# but You may change these values as per your taste.
+#
+
+# The location where bookmarks will be stored
+# default is home directory as set in ${HOME} environtment variable
+# Make sure you have read/write permissions for this directory
+STORE_AT=${HOME}
+
+# bookmark file names, you may want to use the default value
+# but this may be changed if required.
+LOC_FILE=loc.data
+
+#----- DO NOT EDIT ANYTHING BEYOND THIS POINT -----
+#----- IF YOU DON'T KNOW WHAT YOU ARE DOING :) ----
+
+PROPERARG=0 
+
+if ( test $1 && test $1 = "rem" ); then
+  PROPERARG=1
+  if ( test $2 ); then
+    POS=$2;
+  else
+    POS="default"
+  fi
+  pwd > ${STORE_AT}/${LOC_FILE}.${POS}
+  echo "Saved..."
+  pwd
+fi
+
+if ( test $1 && test $1 = "go" ); then
+  PROPERARG=1
+  if( test $2 ); then
+    POS=$2
+  else
+    POS="default"
+  fi
+  
+  IS_PRESENT=`( cat ${STORE_AT}/${LOC_FILE}.${POS} > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
+  if( test ${IS_PRESENT} = "0" ); then
+    if (test ${POS} = "default" ); then
+      echo "Default bookmark not present!"
+    else
+      echo "Named bookmark '${POS}' not found!"
+    fi
+  else
+    SAVED_DIR=`cat ${STORE_AT}/${LOC_FILE}.${POS}`
+    echo "Moving too..." 
+    echo ${SAVED_DIR}
+    cd ${SAVED_DIR}
+  fi
+
+fi
+
+if ( test $1 && test $1 = "show" ); then
+  PROPERARG=1
+  IS_PRESENT=`( ls ${STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
+  CNT=1
+  if( test ${IS_PRESENT} = "0" ); then
+    echo "Location bookmark database is empty!"
+  else
+    for DIR_FILE in `ls ${STORE_AT}/${LOC_FILE}*`; do
+      BMARK=`echo ${DIR_FILE} | perl -e '$line=<STDIN>; @ext=split(/loc\.data\./,$line); print $ext[1];'`
+      CONTENT=`cat ${DIR_FILE}`
+      echo "${CNT} [${BMARK}]: $CONTENT"
+      CNT=`echo ${CNT}+1 | bc`
+    done
+  fi
+fi
+
+if ( test $1 && test $1 = "clear" ); then
+  PROPERARG=1
+  IS_PRESENT=`( ls ${STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
+
+  if( test $2  && test $2 = "all" && test ${IS_PRESENT} = "1" ); then
+    rm -f ${STORE_AT}/${LOC_FILE}*
+    echo "All saved postions cleared!!"
+  elif ( test $2 && test ${IS_PRESENT} = "1" ); then
+    CNT=1
+    REMOVED="0"
+    for DIR_FILE in `ls ${STORE_AT}/${LOC_FILE}*`; do
+      if( test ${CNT} = $2); then
+        if( test -e ${DIR_FILE}); then
+          echo "Removing location ${CNT}..."
+          cat ${DIR_FILE}
+          rm ${DIR_FILE}
+          echo "Removed!"
+          REMOVED="1"
+        else
+          echo "Named bookmark not found!"
+        fi
+      fi
+      CNT=`echo ${CNT}+1 | bc`
+    done
+    if( test ${REMOVED} = "0"); then
+      echo "Index invalid or not found!"
+    fi
+  else
+    if( test ! $2 ); then
+      echo "Supply location index or 'all'"
+    elif ( test ${IS_PRESENT} = "0" ); then
+      echo "Location bookmark database is empty!"
+    fi
+  fi
+fi
+
+
+SHOW_HELP="0"
+if ( test ! $1); then
+  SHOW_HELP="1"
+elif (test ${PROPERARG} = "0"); then
+  echo "Invalid argument, invoke without any parameters for help."
+fi
+
+if ( test ${SHOW_HELP} = "1"); then
+  echo "loc - Location bookmarking script"
+  echo "      Author: Amit Singh (amit@xkoder.com)"
+  echo "      Licensed under MIT License, check the README file for details."
+  echo "      15/Dec/2007"
+  echo ""
+  echo "Syntax is:"
+  echo "  $ . loc rem [Location_NickName]"
+  echo "  $ . loc go [Location_NickName]"
+  echo "  $ . loc show"
+  echo "  $ . loc clear [all|number]"
+  echo ""
+  echo "Commands:"
+  echo ""
+  echo "rem - Remember the current working directory."
+  echo "      Optionally you may specify a short nick name"
+  echo "      Example: (/etc/mail)$ . loc rem mail"
+  echo "               (/home/xk0der)$.  loc rem"
+  echo "      The first command will save /etc/mail as mail"
+  echo "      Second will store /home/xk0der as default location"
+  echo ""
+  echo "go  - Go will move you to the locations you saved using 'rem'"
+  echo "      Example: $ . loc go mail"
+  echo "               $ . loc go"
+  echo "      Taking previours examples into consideration the first"
+  echo "      will take you to /etc/mail, the second wil take you to /home/xk0der"
+  echo ""
+  echo "show  - This will list down a numbered list of remembered (saved) locations"
+  echo "        Example: $ . loc show"
+  echo "        Output format is"
+  echo "            indexNumber [nickName]: storedLocation"
+  echo "        Example output:"
+  echo "            1 [default]: /usr/src" 
+  echo "            2 [mail]: /etc/mail"
+  echo "            3 [share]: /usr/local/share"
+  echo ""
+  echo "clear - Clears saved locations"
+  echo "        You need to either specify 'all' after this command to clear"
+  echo "        all saved locations or a number as shown by 'show' command "
+  echo "        to delete that location"
+  echo "        Example: $ . loc clear all"
+  echo "                 $ . loc clear 2"
+fi
