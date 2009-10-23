@@ -193,3 +193,16 @@ if ( test ${LOC_SHOW_HELP} = "1"); then
   echo "        Example: $ . loc clear all"
   echo "                 $ . loc clear 2"
 fi
+
+unset LOC_PROPERARG
+unset LOC_POS
+unset LOC_SAVED_DIR
+unset LOC_CONTENT
+unset LOC_STORE_AT
+unset LOC_CNT
+unset LOC_SHOW_HELP
+unset LOC_BMARK
+unset LOC_IS_PRESENT
+unset LOC_FILE
+unset LOC_DIR_FILE
+unset LOC_REMOVED
