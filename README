@@ -35,6 +35,56 @@ OTHER DEALINGS IN THE SOFTWARE.
 The Location Bookmarking Script (LOC) makes it easy 
 to bookmark folders and to move across bookmarked folders.
 
+== Using the Script ==
+
+Here is how you'll typically loc script: 
+(For detailed command explanation see section labeled 'syntax')
+
+NOTE: Precede all location commands with a DOT (.)
+
+
+[ Bookmarking a location ]
+
+Suppose you are inside the following folder
+
+    /home/xk0der/SourceCode/loc
+
+To bookmark this location, give the following command
+
+    $ . lcr loc
+
+This will remember (bookmark) the location "/home/xk0der/SourceCode/loc"
+by the name "loc". You can use any descriptive name you want.
+
+If you do not specify the bookmark name "loc", the folder will be save
+as the default bookmark.
+
+    $ . lcr
+
+lcr is short for : location-remember
+
+
+[ Moving to a bookmarked location ]
+
+Issue the following command to move to the bookmark named "loc"
+
+    $ . lcg loc
+
+lcg stands for location-go; Issuing the above command will take you to 
+the bookmarked location by the name "loc", in our case to "/home/xk0der/SourceCode/loc"
+
+If we do not specify any bookmark name, you will be moved to the default bookmark which 
+was saved using `$ . lcr' command.
+
+    $ . lcg
+
+
+[ Viewing all bookmarked locations ]
+
+To view all your bookmarked locations issue the following command:
+
+    $ . loc show
+
 
 == Syntax ==
 
@@ -49,35 +99,52 @@ But if you use it with all the "loc" it just makes it that bit
 easier for your brain!! :)
 
 
+== Shortcuts - lcr and lcg ==
+
+lcr and lcg are shortcuts for "loc rem" and "loc go" command respectively.
+
+
 === Commands ===
 
 rem - Remember the current working directory.
-    Optionally you may specify a short nick name
-    Example: (/etc/mail)$ . loc rem mail
-             (/home/xk0der)$.  loc rem
-    The first command will save /etc/mail as mail
-    Second will store /home/xk0der as default location
+
+      Optionally you may specify a short nick name
+
+      Example:    (/etc/mail)$ . loc rem mail
+               (/home/xk0der)$ . loc rem
+
+      The first command will save /etc/mail as mail
+      Second will store /home/xk0der as default location
 
 go  - Go will move you to the locations you saved using 'rem'
-    Example: $ . loc go mail
-             $ . loc go
-    Taking previours examples into consideration the first
-    will take you to /etc/mail, the second wil take you to /home/xk0der
+      
+      Example: $ . loc go mail
+               $ . loc go
+    
+      Taking previous examples into consideration the first
+      will take you to /etc/mail, the second will take you to /home/xk0der
 
 show  - This will list down a numbered list of remembered (saved) locations
-      Example: $ . loc show
-      Output format is
-          indexNumber [nickName]: storedLocation
-      Example output:
+        
+        Example: $ . loc show
+        
+        Output format is
+            indexNumber [nickName]: storedLocation
+        
+        Example output:
           1 [default]: /usr/src" 
           2 [mail]: /etc/mail
           3 [share]: /usr/local/share
 
 clear - Clears saved locations
-      You need to either specify 'all' after this command to clear
-      all saved locations or a number as shown by 'show' command 
-      to delete that location
-      Example: $ . loc clear all
-               $ . loc clear 2
+        
+        You need to either specify 'all' after this command to clear
+        all saved locations OR a number as shown by 'show' command 
+        to delete that location.
+        
+        Example: $ . loc clear all
+                 $ . loc clear 3
 
-== Shortcuts ==
+        The first command will clear all saved bookmarks.
+        The second one will delete the bookmark named "share" as 
+        per our example in the show command.
