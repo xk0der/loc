@@ -1,0 +1,13 @@
+#!/bin/sh
+
+INSTALL_AT=/usr/local/bin
+
+SUCCESS_MSG="Succesffully installed at ${INSTALL_AT}\nRun 'loc' without any arguments for help!"
+FAILURE_MSG="Error: Unable to install at ${INSTALL_AT}.\nMake sure you have write permissions for the folder."
+
+if [ -e loc ] && [ -e lcr ] && [ -e lcg ]; then
+    ( cp lcr ${INSTALL_AT} &> /dev/null; cp lcg ${INSTALL_AT} &> /dev/null; cp loc ${INSTALL_AT} &> /dev/null ) && echo -e ${SUCCESS_MSG}  || echo -e ${FAILURE_MSG}
+else
+    echo "Unable to find 'loc', 'lcr' and 'lcg' script inside current folder!"
+    echo "Cannot install!"
+fi
