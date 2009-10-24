@@ -35,9 +35,21 @@ OTHER DEALINGS IN THE SOFTWARE.
 The Location Bookmarking Script (LOC) makes it easy 
 to bookmark folders and to move across bookmarked folders.
 
+
+== Installing ==
+
+To install, run the following command from inside the folder
+where the scripts loc, lcr and lcg are present.
+
+    $ sh install
+
+This script will copy the files loc, lcr and lcg
+to /usr/local/bin
+
+
 == Using the Script ==
 
-Here is how you'll typically loc script: 
+Here is how you'll typically use the loc script: 
 (For detailed command explanation see section labeled 'syntax')
 
 NOTE: Precede all location commands with a DOT (.)
