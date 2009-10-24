@@ -41,9 +41,9 @@
 #
 
 # The location where bookmarks will be stored
-# default is home directory as set in ${HOME} environtment variable
+# default is .loc inside home directory as set in ${HOME} environtment variable
 # Make sure you have read/write permissions for this directory
-LOC_STORE_AT=${HOME}
+LOC_STORE_AT=${HOME}/.loc
 
 # bookmark file names, you may want to use the default value
 # but this may be changed if required.
@@ -52,9 +52,18 @@ LOC_FILE=loc.data
 #----- DO NOT EDIT ANYTHING BEYOND THIS POINT -----
 #----- IF YOU DON'T KNOW WHAT YOU ARE DOING :) ----
 
+checkStoreAt () 
+{
+    if [ ! -d ${LOC_STORE_AT} ]; then
+        mkdir ${LOC_STORE_AT}
+    fi
+}
+
+
 LOC_PROPERARG=0 
 
 if [ $1 ] && [ $1 == "rem" ]; then
+  checkStoreAt
   LOC_PROPERARG=1
   if [ $2 ]; then
     LOC_POS=$2;
@@ -67,6 +76,7 @@ if [ $1 ] && [ $1 == "rem" ]; then
 fi
 
 if [ $1 ] && [ $1 == "go" ]; then
+  checkStoreAt
   LOC_PROPERARG=1
   if [ $2 ]; then
     LOC_POS=$2
@@ -91,6 +101,7 @@ if [ $1 ] && [ $1 == "go" ]; then
 fi
 
 if [ $1 ] && [ $1 == "show" ]; then
+  checkStoreAt
   LOC_PROPERARG=1
   LOC_IS_PRESENT=`( ls ${LOC_STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
   LOC_CNT=1
@@ -107,6 +118,7 @@ if [ $1 ] && [ $1 == "show" ]; then
 fi
 
 if [ $1 ] && [ $1 == "clear" ]; then
+  checkStoreAt
   LOC_PROPERARG=1
   LOC_IS_PRESENT=`( ls ${LOC_STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
 
