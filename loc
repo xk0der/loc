@@ -108,11 +108,11 @@ if [ $1 ] && [ $1 == "show" ]; then
   if [ ${LOC_IS_PRESENT} == "0" ]; then
     echo "Location bookmark database is empty!"
   else
-    for LOC_DIR_FILE in `ls ${LOC_STORE_AT}/${LOC_FILE}*`; do
+    for LOC_DIR_FILE in ${LOC_STORE_AT}/${LOC_FILE}*; do
       LOC_BMARK=`echo ${LOC_DIR_FILE} | perl -e '$line=<STDIN>; @ext=split(/loc\.data\./,$line); print $ext[1];'`
       LOC_CONTENT=`cat ${LOC_DIR_FILE}`
       echo "${LOC_CNT} [${LOC_BMARK}]: $LOC_CONTENT"
-      LOC_CNT=`echo ${LOC_CNT}+1 | bc`
+      (( LOC_CNT++ ))
     done
   fi
 fi
@@ -140,7 +140,7 @@ if [ $1 ] && [ $1 == "clear" ]; then
           echo "Named bookmark not found!"
         fi
       fi
-      LOC_CNT=`echo ${LOC_CNT}+1 | bc`
+      (( LOC_CNT++ ))
     done
     if [ ${LOC_REMOVED} == "0" ]; then
       echo "Index invalid or not found!"
