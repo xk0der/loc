@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 INSTALL_AT=/usr/local/bin
 
@@ -8,11 +8,14 @@ FAILURE_MSG="Error: Unable to install at ${INSTALL_AT}.\nMake sure you have writ
 if [ -e loc ] && [ -e lcr ] && [ -e lcg ]; then
     ( cp lcr ${INSTALL_AT} &> /dev/null;
       cp lcg ${INSTALL_AT} &> /dev/null; 
-      cp loc ${INSTALL_AT} &> /dev/null; 
+      cp loc ${INSTALL_AT} &> /dev/null;
+      cp lcs ${INSTALL_AT} &> /dev/null; 
       chmod 755 ${INSTALL_AT}/lcr &> /dev/null; 
       chmod 755 ${INSTALL_AT}/lcg &> /dev/null; 
-      chmod 755 ${INSTALL_AT}/loc &> /dev/null) && echo -e ${SUCCESS_MSG}  || echo -e ${FAILURE_MSG}
+      chmod 755 ${INSTALL_AT}/loc &> /dev/null;
+      chmod 755 ${INSTALL_AT}/lcs &> /dev/null;
+    ) && echo -e ${SUCCESS_MSG}  || echo -e ${FAILURE_MSG}
 else
-    echo "Unable to find 'loc', 'lcr' and 'lcg' script inside current folder!"
-    echo "Cannot install!"
+    echo "Unable to find 'loc', 'lcs', 'lcr' and 'lcg' script inside current folder!"
+    echo "Unable to install!"
 fi

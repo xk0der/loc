@@ -82,7 +82,9 @@ Issue the following command to move to the bookmark named "loc"
 
     $ . lcg loc
 
-lcg stands for location-go; Issuing the above command will take you to 
+lcg stands for: location-go
+
+Issuing the above command will take you to 
 the bookmarked location by the name "loc", in our case to "/home/xk0der/SourceCode/loc"
 
 If we do not specify any bookmark name, you will be moved to the default bookmark which 
@@ -95,8 +97,9 @@ was saved using `$ . lcr' command.
 
 To view all your bookmarked locations issue the following command:
 
-    $ . loc show
+    $ . lcs
 
+lcs stands for: location-show
 
 == Syntax ==
 
@@ -111,9 +114,9 @@ But if you use it with all the "loc" it just makes it that bit
 easier for your brain!! :)
 
 
-== Shortcuts - lcr and lcg ==
+== Shortcuts - lcs, lcr and lcg ==
 
-lcr and lcg are shortcuts for "loc rem" and "loc go" command respectively.
+lcs, lcr and lcg are shortcuts for "loc show", "loc rem" and "loc go" commands respectively.
 
 
 === Commands ===

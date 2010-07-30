@@ -2,4 +2,4 @@
 #
 # Please see "loc" script for details
 #
-. loc rem $1
+. loc show
