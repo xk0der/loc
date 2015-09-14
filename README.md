@@ -170,12 +170,16 @@ $ . loc show
 ```
     
 Output format is
+```
     indexNumber [nickName]: storedLocation
+```    
     
 _Example output:_
+```
     1 [default]: /usr/src" 
     2 [mail]: /etc/mail
     3 [share]: /usr/local/share
+```    
 
 #### `clear` - Clears saved locations
     
