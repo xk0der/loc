@@ -106,7 +106,8 @@ was saved using `$ . lcg` command.
 $ . lcg
 ```
 
-`. lcg` supports auto-completion of stored bookmarks. Type `. lcg` and press `[TAB]` to view list of stored bookmarks.
+`lcg` supports auto-completion of stored bookmarks. Type `lcg` and press `[TAB]` to view list of stored bookmarks.
+Check `xdotool` section below to find out how to run commands without prefixing them with a DOT (`.`) and thus get proper auto-completion for `lcg`
 
 ### Viewing all bookmarked locations
 
@@ -132,6 +133,22 @@ Technically it is only required with the "go" command,
 But if you use it with all the "loc" it just makes it that bit
 easier for your brain!! :)
 
+### `xdotool`
+IF you have [`xdotool`](http://www.semicomplete.com/projects/xdotool/) installed and running under GUI, you NEED NOT prefix commands with a DOT (`.`) to source the script.
+
+Most distributions provide xdotool package in their repo and a simple _install package_ command should work to install it on your system.
+_Example:_
+
+YUM based distributions (Fedora, CentOS, etc)
+```bash
+$ sudo yum install xdotool 
+```
+Ubuntu and similar distributions
+```
+$ sudo apt-get install xdotool
+```
+Once installed you may run all of the `lcs`, `lcr` and `lcg` commands without prefixing them with a DOT (`.`).
+*Do note* that xdotool is an X11 Automation utility, hence would only work under graphical terminals running X11.
 
 ## Shortcuts - lcs, lcr and lcg
 
