@@ -1,10 +1,12 @@
-== loc - Location bookmarking script ==
+# loc - Location bookmarking script
 
+```
 Author: Amit Singh (xk0der) 
 amit@xkoder.com
 Licensed under MIT License
+```
 
-== LICENSE ==
+## LICENSE
 
 Copyright (c) 2009, Amit Singh (xk0der)
 
@@ -30,24 +32,26 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 
-== About the Script ==
+## About the Script
 
 The Location Bookmarking Script (LOC) makes it easy 
 to bookmark folders and to move across bookmarked folders.
 
 
-== Installing ==
+## Installing 
 
 To install, run the following command from inside the folder
 where the scripts loc, lcr and lcg are present.
 
-    $ sh install
+```bash
+$ sh install
+```
 
 This script will copy the files loc, lcr and lcg
-to /usr/local/bin
+to `/usr/local/bin`
 
 
-== Using the Script ==
+## Using the Script
 
 Here is how you'll typically use the loc script: 
 (For detailed command explanation see section labeled 'syntax')
@@ -55,15 +59,19 @@ Here is how you'll typically use the loc script:
 NOTE: Precede all location commands with a DOT (.)
 
 
-[ Bookmarking a location ]
+### Bookmarking a location 
 
 Suppose you are inside the following folder
 
-    /home/xk0der/SourceCode/loc
+```
+/home/xk0der/SourceCode/loc
+```
 
 To bookmark this location, give the following command
 
-    $ . lcr loc
+```bash
+$ . lcr loc
+```
 
 This will remember (bookmark) the location "/home/xk0der/SourceCode/loc"
 by the name "loc". You can use any descriptive name you want.
@@ -71,95 +79,116 @@ by the name "loc". You can use any descriptive name you want.
 If you do not specify the bookmark name "loc", the folder will be save
 as the default bookmark.
 
-    $ . lcr
+```bash
+$ . lcr
+```
 
-lcr is short for : location-remember
+`lcr` is short for : location-remember
 
 
-[ Moving to a bookmarked location ]
+### Moving to a bookmarked location
 
 Issue the following command to move to the bookmark named "loc"
 
-    $ . lcg loc
+```bash
+$ . lcg loc
+```
 
-lcg stands for: location-go
+`lcg` stands for: location-go
 
 Issuing the above command will take you to 
-the bookmarked location by the name "loc", in our case to "/home/xk0der/SourceCode/loc"
+the bookmarked location by the name `"loc"`, in our case to `"/home/xk0der/SourceCode/loc"`
 
 If we do not specify any bookmark name, you will be moved to the default bookmark which 
-was saved using `$ . lcr' command.
+was saved using `$ . lcg` command.
 
-    $ . lcg
+```bash
+$ . lcg
+```
 
-
-[ Viewing all bookmarked locations ]
+### Viewing all bookmarked locations
 
 To view all your bookmarked locations issue the following command:
 
-    $ . lcs
+```bash
+$ . lcs
+```
 
-lcs stands for: location-show
+`lcs` stands for: location-show
 
-== Syntax ==
+## Syntax
 
+```bash
 $ . loc rem [Location_NickName]
 $ . loc go [Location_NickName]
 $ . loc show
 $ . loc clear [all|number]
+```
 
-Notice the DOT (.) before every command.
+Notice the DOT (`.`) before every command.
 Technically it is only required with the "go" command,
 But if you use it with all the "loc" it just makes it that bit
 easier for your brain!! :)
 
 
-== Shortcuts - lcs, lcr and lcg ==
+## Shortcuts - lcs, lcr and lcg
 
-lcs, lcr and lcg are shortcuts for "loc show", "loc rem" and "loc go" commands respectively.
+`lcs`, `lcr` and `lcg` are shortcuts for `"loc show"`, `"loc rem"` and `"loc go"` commands respectively.
 
 
-=== Commands ===
+### Commands
 
-rem - Remember the current working directory.
+#### `rem` - Remember the current working directory.
 
-      Optionally you may specify a short nick name
+Optionally you may specify a short nick name
 
-      Example:    (/etc/mail)$ . loc rem mail
-               (/home/xk0der)$ . loc rem
+_Example:_
+```bash
+(/etc/mail)$ . loc rem mail
+(/home/xk0der)$ . loc rem
+```
 
-      The first command will save /etc/mail as mail
-      Second will store /home/xk0der as default location
+The first command will save `/etc/mail` as mail
+Second will store `/home/xk0der` as default location
 
-go  - Go will move you to the locations you saved using 'rem'
-      
-      Example: $ . loc go mail
-               $ . loc go
+#### `go`  - Go will move you to the locations you saved using 'rem'
+ 
+_Example:_
+```bash
+$ . loc go mail
+$ . loc go
+```
     
-      Taking previous examples into consideration the first
-      will take you to /etc/mail, the second will take you to /home/xk0der
+Taking previous examples into consideration the first
+will take you to `/etc/mail`, the second will take you to `/home/xk0der`
 
-show  - This will list down a numbered list of remembered (saved) locations
-        
-        Example: $ . loc show
-        
-        Output format is
-            indexNumber [nickName]: storedLocation
-        
-        Example output:
-          1 [default]: /usr/src" 
-          2 [mail]: /etc/mail
-          3 [share]: /usr/local/share
+#### `show`  - This will list down a numbered list of remembered (saved) locations
+ 
+_Example:_ 
+```bash
+$ . loc show
+```
+    
+Output format is
+    indexNumber [nickName]: storedLocation
+    
+_Example output:_
+    1 [default]: /usr/src" 
+    2 [mail]: /etc/mail
+    3 [share]: /usr/local/share
 
-clear - Clears saved locations
-        
-        You need to either specify 'all' after this command to clear
-        all saved locations OR a number as shown by 'show' command 
-        to delete that location.
-        
-        Example: $ . loc clear all
-                 $ . loc clear 3
+#### `clear` - Clears saved locations
+    
+You need to either specify 'all' after this command to clear
+all saved locations OR a number as shown by 'show' command 
+to delete that location.
 
-        The first command will clear all saved bookmarks.
-        The second one will delete the bookmark named "share" as 
-        per our example in the show command.
+_Example:_ 
+```bash
+$ . loc clear all
+$ . loc clear 3
+```
+
+The first command will clear all saved bookmarks.
+The second one will delete the bookmark named "share" as 
+per our example in the show command.
