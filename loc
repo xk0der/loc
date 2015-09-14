@@ -60,6 +60,12 @@ checkStoreAt ()
 }
 
 
+LOC_XDOTOOL=0
+which xdotool > /dev/null
+if [ $? -eq 0 ]; then
+    LOC_XDOTOOL=1
+fi    
+
 LOC_PROPERARG=0 
 
 if [ $1 ] && [ $1 == "rem" ]; then
@@ -95,7 +101,13 @@ if [ $1 ] && [ $1 == "go" ]; then
     LOC_SAVED_DIR=`cat ${LOC_STORE_AT}/${LOC_FILE}.${LOC_POS}`
     echo "Moving too..." 
     echo ${LOC_SAVED_DIR}
-    cd ${LOC_SAVED_DIR}
+    if [ $LOC_XDOTOOL -eq 1 ]; then
+        xdotool type --delay 1 --clearmodifiers "cd ${LOC_SAVED_DIR}"
+        xdotool key Return
+        xdotool key Return
+    else    
+        cd ${LOC_SAVED_DIR}
+    fi
   fi
 
 fi
@@ -174,6 +186,9 @@ if [ ${LOC_SHOW_HELP} == "1" ]; then
   echo "  $ . loc show"
   echo "  $ . loc clear [all|number]"
   echo ""
+  echo "** Consider installing 'xdotool' if using primarily from under GUI to avoid prefixing commands with '.'"
+  echo "** And get auto-completion for lcg command"
+  echo ""
   echo "Commands:"
   echo ""
   echo "rem - Remember the current working directory."
@@ -220,3 +235,4 @@ unset LOC_IS_PRESENT
 unset LOC_FILE
 unset LOC_DIR_FILE
 unset LOC_REMOVED
+unset LOC_XDOTOOL
