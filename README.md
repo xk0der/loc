@@ -96,8 +96,6 @@ $ . lcg loc
 
 `lcg` stands for: location-go
 
-`. lcg` supports auto-completion of stored bookmarks. Type `. lcg` and press `[TAB]` to view list of stored bookmarks.
-
 Issuing the above command will take you to 
 the bookmarked location by the name `"loc"`, in our case to `"/home/xk0der/SourceCode/loc"`
 
@@ -108,7 +106,7 @@ was saved using `$ . lcg` command.
 $ . lcg
 ```
 
-`. lcg` now supports auto-completion of bookmarks.
+`. lcg` supports auto-completion of stored bookmarks. Type `. lcg` and press `[TAB]` to view list of stored bookmarks.
 
 ### Viewing all bookmarked locations
 
