@@ -206,6 +206,9 @@ if [ ${LOC_SHOW_HELP} == "1" ]; then
   echo "                 $ . loc clear 2"
 fi
 
+complete -W "`\ls ${LOC_STORE_AT}/ | cut -d. -f3`" . lcg
+complete -W "`\ls ${LOC_STORE_AT}/ | cut -d. -f3`" lcg
+
 unset LOC_PROPERARG
 unset LOC_POS
 unset LOC_SAVED_DIR
