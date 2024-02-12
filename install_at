@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $1 ] ; then
+  echo "Attempting to install at $1"
+  echo "Once the scripts are copied, the path '$1' must be added to \$PATH variable"
+  echo ""
+  if [ -d $1 ]; then
+    ./install -p $1
+  else
+    echo "Path '$1' does not exists"
+    read -p "Should I create it for you? [y/N]" CREATE
+    if [[ "${CREATE}" == "y" ]] || [[ "${CREATE}" == "Y" ]]; then
+      mkdir -p $1
+      ./install -p $1
+    else
+      echo "Stopping! Re-run after using a valid path."
+    fi
+  fi
+else
+  echo "Please provide path where the scripts should be copied to!"
+  echo "Example..."
+  echo "  $ install_at ~/bin"
+fi
