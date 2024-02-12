@@ -68,7 +68,7 @@ fi
 
 LOC_PROPERARG=0 
 
-if [ $1 ] && [ $1 == "rem" ]; then
+if [ $1 ] && [[ "$1" == "rem" ]]; then
   checkStoreAt
   LOC_PROPERARG=1
   if [ $2 ]; then
@@ -81,7 +81,7 @@ if [ $1 ] && [ $1 == "rem" ]; then
   pwd
 fi
 
-if [ $1 ] && [ $1 == "go" ]; then
+if [ $1 ] && [[ "$1" == "go" ]]; then
   checkStoreAt
   LOC_PROPERARG=1
   if [ $2 ]; then
@@ -91,7 +91,7 @@ if [ $1 ] && [ $1 == "go" ]; then
   fi
   
   LOC_IS_PRESENT=`( cat ${LOC_STORE_AT}/${LOC_FILE}.${LOC_POS} > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
-  if [ ${LOC_IS_PRESENT} == "0" ]; then
+  if [[ "${LOC_IS_PRESENT}" == "0" ]]; then
     if [ ${LOC_POS} == "default" ]; then
       echo "Default bookmark not present!"
     else
@@ -112,7 +112,7 @@ if [ $1 ] && [ $1 == "go" ]; then
 
 fi
 
-if [ $1 ] && [ $1 == "show" ]; then
+if [ $1 ] && [[ "$1" == "show" ]]; then
   checkStoreAt
   LOC_PROPERARG=1
   LOC_IS_PRESENT=`( ls ${LOC_STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
@@ -129,15 +129,15 @@ if [ $1 ] && [ $1 == "show" ]; then
   fi
 fi
 
-if [ $1 ] && [ $1 == "clear" ]; then
+if [ $1 ] && [[ "$1" == "clear" ]]; then
   checkStoreAt
   LOC_PROPERARG=1
   LOC_IS_PRESENT=`( ls ${LOC_STORE_AT}/${LOC_FILE}* > /dev/null 2> /dev/null ) && echo "1" || echo "0"`
 
-  if [ $2 ]  && [ $2 == "all" ] && [ ${LOC_IS_PRESENT} == "1" ]; then
+  if [ $2 ]  && [[ "$2" == "all" ]] && [[ "${LOC_IS_PRESENT}" == "1" ]]; then
     rm -f ${LOC_STORE_AT}/${LOC_FILE}*
     echo "All saved postions cleared!!"
-  elif [ $2 ] && [ ${LOC_IS_PRESENT} == "1" ]; then
+  elif [ $2 ] && [[ "${LOC_IS_PRESENT}" == "1" ]]; then
     LOC_CNT=1
     LOC_REMOVED="0"
     for LOC_DIR_FILE in `ls ${LOC_STORE_AT}/${LOC_FILE}*`; do
@@ -170,11 +170,11 @@ fi
 LOC_SHOW_HELP="0"
 if [ ! $1 ]; then
   LOC_SHOW_HELP="1"
-elif [ ${LOC_PROPERARG} == "0" ]; then
+elif [[ "${LOC_PROPERARG}" == "0" ]]; then
   echo "Invalid argument, invoke without any parameters for help."
 fi
 
-if [ ${LOC_SHOW_HELP} == "1" ]; then
+if [[ "${LOC_SHOW_HELP}" == "1" ]]; then
   echo "loc - Location bookmarking script"
   echo "      Author: Amit Singh (amit@xkoder.com)"
   echo "      Licensed under MIT License, check the README file for details."

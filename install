@@ -2,11 +2,16 @@
 
 INSTALL_AT=/usr/local/bin
 
+if [ $1 == "-p" ] && [ $2 ]  && [ -e loc ] && [ -e lcr ] && [ -e lcg ]; then
+   INSTALL_AT=$2/
+   echo "Trying to install at ${INSTALL_AT}"
+fi
+
 SUCCESS_MSG="Succesffully installed at ${INSTALL_AT}\nRun 'loc' without any arguments for help!"
 FAILURE_MSG="Error: Unable to install at ${INSTALL_AT}.\nMake sure you have write permissions for the folder."
 
 if [ -e loc ] && [ -e lcr ] && [ -e lcg ]; then
-    ( cp lcr ${INSTALL_AT} &> /dev/null;
+  ( cp lcr ${INSTALL_AT} &> /dev/null;
       cp lcg ${INSTALL_AT} &> /dev/null; 
       cp loc ${INSTALL_AT} &> /dev/null;
       cp lcs ${INSTALL_AT} &> /dev/null; 
